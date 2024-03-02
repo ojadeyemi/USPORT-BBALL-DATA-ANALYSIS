@@ -4,8 +4,8 @@ import pandas as pd
 from datafunctions import usports_hoop_data
 
 #list of teams who won championshp and appeared in final 8 (replace mbb to wbb for womens)
-championship_teams = usports_hoop_data('https://usportshoops.ca/history/champ-years.php?Gender=WBB')
-appearance_teams = usports_hoop_data('https://usportshoops.ca/history/champ-appearances.php?Gender=WBB')
+championship_teams = usports_hoop_data('https://usportshoops.ca/history/champ-years.php?Gender=MBB')
+appearance_teams = usports_hoop_data('https://usportshoops.ca/history/champ-appearances.php?Gender=MBB')
 
 temp_df = pd.DataFrame(championship_teams) #championship dataframe
 temp_df2 = pd.DataFrame(appearance_teams) #appearance dataframe
@@ -32,7 +32,7 @@ for index, row in merged_df.iterrows():
             team_performance[i - earliest_year] += team_performance[i - earliest_year - 1]
 
         if i in championship_years:
-            team_performance[i - earliest_year] += 12    
+            team_performance[i - earliest_year] += 15    
         if i in championship_appearance:
             team_performance[i - earliest_year] += 1 
 
