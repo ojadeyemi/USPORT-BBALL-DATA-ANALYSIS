@@ -209,4 +209,68 @@ def usports_team_data(stats_url, no_of_teams):
     df['Net Efficiency'] = df['Net Efficiency'].astype(float)
     return df
 
-df = usports_team_data('https://universitysport.prestosports.com/sports/mbkb/2023-24/teams?sort=&r=0&pos=off', 52)
+def usports_hoop_data(url):
+    """Parse HTML content containing Usports championship data
+      Args: html_content :String containing the HTML data
+      Returns: a list containing team names, the number of championships won/appearance, and list of years team won/apperance
+    """
+     #perfrom GET request to the URL and returns the server response to the HTTP request
+    page = requests.get(url)
+   
+    if(page.status_code != 200):
+        print("USport's Server did not respond with HTTP request")
+
+    #parse html document
+    soup = BeautifulSoup(page.content, 'html.parser')
+
+    # Find the table that contains the team, no of championship and year won
+    header_row = soup.find_all('table')[2]
+
+    # Find all table rows containing team data (excluding the header)
+    team_data_rows = header_row.find_all('tr')
+    
+     # Extract data for each team
+    teams = []
+
+    for row in team_data_rows[1:]:
+        cells = row.find_all('td', align = 'center')
+        first_cell =(cells[0].text.strip())
+        second_cell = (cells[1].text.strip())
+
+        #extract name of team
+        team_name = f"".join(filter(lambda x: x.isalpha(), first_cell))
+        
+        #get list of years team won and no_of champs will be the lenght of the list
+        years_won = second_cell.split(',')
+        years_won[0] = years_won[0][1:]
+        if(len(years_won[0]) > 4):
+            years_won[0] = years_won[0][1:]
+
+        championship_years = []
+        for value in years_won:
+            value = value.strip()
+            try:
+                int_value = int(value)
+            except ValueError:
+                # Handle the case where the string cannot be converted to an integer
+                print(f"Error: Could not convert '{value}' to an integer.")
+                continue  # Skip to the next iteration if conversion fails
+            championship_years.append(int_value)
+
+        no_of_champs_won = len(championship_years)
+
+        #dictionary for each team
+        team_info = {
+            'team_name': team_name,
+            'championship_count': no_of_champs_won,
+            'championship_years' :championship_years
+                    }
+        #append each tema dictionary to teams list
+        teams.append(team_info)
+    
+    return teams
+
+#test df from usports (replace MBB to WBB for women's league)
+apperance = usports_hoop_data('https://usportshoops.ca/history/champ-appearances.php?Gender=WBB')
+print()
+championship = usports_hoop_data('https://usportshoops.ca/history/champ-years.php?Gender=WBB')
