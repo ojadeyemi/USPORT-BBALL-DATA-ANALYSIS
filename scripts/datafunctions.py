@@ -47,7 +47,7 @@ def usports_team_data(stats_url, no_of_teams):
     off_rebounds_per_game_against = []
     def_rebounds_per_game_against = []
     total_rebounds_per_game_against = []
-    points_margin =[]
+    rebounds_margin =[]
     assists_per_game_against = []
     turnovers_per_game_against = []
     steals_per_game_against = []
@@ -98,6 +98,19 @@ def usports_team_data(stats_url, no_of_teams):
         #Extract data from other columns
         columns = row.find_all('td', align = 'center')
         field_goals_against.append(columns[1].text.strip())
+        field_goal_against_percentage.append(columns[2].text.strip())
+        three_pointers_against.append(columns[3].text.strip())
+        three_point_against_percentage.append(columns[4].text.strip())
+        off_rebounds_per_game_against.append(columns[5].text.strip())
+        def_rebounds_per_game_against.append(columns[6].text.strip())
+        total_rebounds_per_game_against.append(columns[7].text.strip())
+        rebounds_margin.append(columns[8].text.strip())
+        assists_per_game_against.append(columns[9].text.strip())
+        turnovers_per_game_against.append(columns[10].text.strip())
+        steals_per_game_against.append(columns[11].text.strip())
+        blocks_per_game_against.append(columns[12].text.strip())
+        fouls_per_game_against.append(columns[13].text.strip())
+        points_per_game_against.append(columns[14].text.strip())
         def_efficiency.append(columns[15].text.strip())  
 
     data_collected = {
@@ -120,9 +133,21 @@ def usports_team_data(stats_url, no_of_teams):
         'Team Fouls/Game': fouls_per_game,
         'Offensive Efficiency': off_efficiency,
         'Defensive Efficiency': def_efficiency,
-        'Net Efficiency': net_efficiency
-        }
-    
+        'Net Efficiency': net_efficiency,
+        'Field Goals Against': field_goals_against,
+        'Field Goals % Against': field_goal_against_percentage,
+        '3-points Against': three_pointers_against,
+        '3-points % Against ': three_point_against_percentage,
+        'Offensive Rebounds/Game Against': off_rebounds_per_game_against,
+        'Defensive Rebounds/Game Against': def_rebounds_per_game_against,
+        'Total Rebounds/Game Against': total_rebounds_per_game_against,
+        'Assists/Game Against': assists_per_game_against,
+        'Turnovers/Game Against': turnovers_per_game_against,
+        'Steals/Game Against': steals_per_game_against,
+        'Blocks/Game Against': blocks_per_game_against,
+        'Team Fouls/Game Against': fouls_per_game_against,
+        'Points/Game Against': points_per_game_against
+    }
     #create dictionary that maps university sports team to respective conference
     team_conference = {
     'Acadia': 'AUS',
@@ -204,9 +229,12 @@ def usports_team_data(stats_url, no_of_teams):
     df['Blocks/Game'] = df['Blocks/Game'].astype(float)
     df['Team Fouls/Game'] = df['Team Fouls/Game'].astype(float)
     df['Points/Game'] = df['Points/Game'].astype(float)
-    df['Offensive Efficiency'] = df['Offensive Efficiency'].astype(float)
-    df['Defensive Efficiency'] = df['Defensive Efficiency'].astype(float)
-    df['Net Efficiency'] = df['Net Efficiency'].astype(float)
+    try:
+        df['Offensive Efficiency'] = df['Offensive Efficiency'].astype(float)
+        df['Defensive Efficiency'] = df['Defensive Efficiency'].astype(float)
+        df['Net Efficiency'] = df['Net Efficiency'].astype(float)
+    except:
+        print(f"Some team's efficiency was not recorded")
     return df
 
 def usports_hoop_data(url):
@@ -274,3 +302,13 @@ def usports_hoop_data(url):
 apperance = usports_hoop_data('https://usportshoops.ca/history/champ-appearances.php?Gender=WBB')
 print()
 championship = usports_hoop_data('https://usportshoops.ca/history/champ-years.php?Gender=WBB')
+
+mens_team = ('https://universitysport.prestosports.com/sports/mbkb/2023-24/teams?sort=&r=0&pos=off', 52)
+womens_team = ('https://universitysport.prestosports.com/sports/wbkb/2023-24/teams?sort=&r=0&pos=off', 48)
+selected_team = mens_team
+
+df = usports_team_data(selected_team[0], selected_team[1])
+
+
+#make two seperate functions file one from usports other from usportshoop
+#which program has the most pro players from usports hoops
