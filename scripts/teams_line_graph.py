@@ -116,7 +116,7 @@ image = imread(image_path)
 plt.figimage(image, xo = 465, yo = 1150, alpha = 0.7)
 
 #save figure before showing
-plt.savefig('USports_MBB_BestProgram.png', dpi=300)
+#plt.savefig('USports_MBB_BestProgram.png', dpi=300)
 plt.show()
 plt.close()
 
