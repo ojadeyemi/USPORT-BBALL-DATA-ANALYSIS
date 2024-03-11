@@ -96,7 +96,7 @@ plt.tick_params(axis='y', which='both', right=False,
                 left=False, labelleft=False) 
 
 # Iterating over all the axes in the figure 
-# and make the Spines Visibility as False 
+# and make the Spines Visibility as False.
 for pos in ['right', 'top', 'left']: 
     plt.gca().spines[pos].set_visible(False) 
 
