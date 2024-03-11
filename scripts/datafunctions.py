@@ -88,7 +88,7 @@ def usports_team_data(stats_url, no_of_teams):
         off_efficiency.append(columns[16].text.strip())
         net_efficiency.append(columns[17].text.strip())
 
-     #Loop through defensive stats row (skip first row(header) and second row which contains game played)
+    #Loop through defensive stats row (skip first row(header) and second row which contains game played)
     for index, row in enumerate(rows[no_of_teams+2:]):
         
         #exit loop when we reached end of table
@@ -137,7 +137,7 @@ def usports_team_data(stats_url, no_of_teams):
         'Field Goals Against': field_goals_against,
         'Field Goals % Against': field_goal_against_percentage,
         '3-points Against': three_pointers_against,
-        '3-points % Against ': three_point_against_percentage,
+        '3-points % Against': three_point_against_percentage,
         'Offensive Rebounds/Game Against': off_rebounds_per_game_against,
         'Defensive Rebounds/Game Against': def_rebounds_per_game_against,
         'Total Rebounds/Game Against': total_rebounds_per_game_against,
@@ -209,6 +209,13 @@ def usports_team_data(stats_url, no_of_teams):
     #remove rows with null vlaues
     df = df[df['Games Played'] != '-']
 
+    #make new columns for fieldgoal made and fieldgoal taken
+    df[['Field Goal Made', 'Field Goal Attempted']] = df['Field Goals'].str.split('-', expand=True).astype(int)
+    df[['3-pointers Made', '3-pointers Attempted']] = df['3-points'].str.split('-', expand=True).astype(int)
+    df[['Free Throws Made', 'Free Throws Attempted']] = df['Free Throws'].str.split('-', expand=True).astype(int)
+    #delete original field goal and three point columns
+    #del df['Field Goals']
+
     #set index to teams
     df = df.set_index('Team')
 
@@ -229,6 +236,19 @@ def usports_team_data(stats_url, no_of_teams):
     df['Blocks/Game'] = df['Blocks/Game'].astype(float)
     df['Team Fouls/Game'] = df['Team Fouls/Game'].astype(float)
     df['Points/Game'] = df['Points/Game'].astype(float)
+    df['Field Goals Against'] = df['Field Goals Against'].astype(str)
+    df['Field Goals % Against'] = df['Field Goals % Against'].astype(float)
+    df['3-points Against'] = df['3-points Against'].astype(str)
+    df['3-points % Against'] = df['3-points % Against'].astype(float)
+    df['Offensive Rebounds/Game Against'] = df['Offensive Rebounds/Game Against'].astype(float)
+    df['Defensive Rebounds/Game Against'] = df['Defensive Rebounds/Game Against'].astype(float)
+    df['Total Rebounds/Game Against'] = df['Total Rebounds/Game Against'].astype(float)
+    df['Assists/Game Against'] = df['Assists/Game Against'].astype(float)
+    df['Turnovers/Game Against'] = df['Turnovers/Game Against'].astype(float)
+    df['Steals/Game Against'] = df['Steals/Game Against'].astype(float)
+    df['Blocks/Game Against'] = df['Blocks/Game Against'].astype(float)
+    df['Team Fouls/Game Against'] = df['Team Fouls/Game Against'].astype(float)
+    df['Points/Game Against'] = df['Points/Game Against'].astype(float)
     try:
         df['Offensive Efficiency'] = df['Offensive Efficiency'].astype(float)
         df['Defensive Efficiency'] = df['Defensive Efficiency'].astype(float)
@@ -298,17 +318,20 @@ def usports_hoop_data(url):
     
     return teams
 
-#test df from usports (replace MBB to WBB for women's league)
-apperance = usports_hoop_data('https://usportshoops.ca/history/champ-appearances.php?Gender=WBB')
-print()
-championship = usports_hoop_data('https://usportshoops.ca/history/champ-years.php?Gender=WBB')
+def main():
+    #test df from usports (replace MBB to WBB for women's league)
+    apperance = usports_hoop_data('https://usportshoops.ca/history/champ-appearances.php?Gender=WBB')
+    print()
+    championship = usports_hoop_data('https://usportshoops.ca/history/champ-years.php?Gender=WBB')
 
-mens_team = ('https://universitysport.prestosports.com/sports/mbkb/2023-24/teams?sort=&r=0&pos=off', 52)
-womens_team = ('https://universitysport.prestosports.com/sports/wbkb/2023-24/teams?sort=&r=0&pos=off', 48)
-selected_team = mens_team
+    mens_team = ('https://universitysport.prestosports.com/sports/mbkb/2023-24/teams?sort=&r=0&pos=off', 52)
+    womens_team = ('https://universitysport.prestosports.com/sports/wbkb/2023-24/teams?sort=&r=0&pos=off', 48)
+    selected_team = mens_team
 
-df = usports_team_data(selected_team[0], selected_team[1])
+    df = usports_team_data(selected_team[0], selected_team[1])
 
 
+if __name__ == '__main__':
+    main()
 #make two seperate functions file one from usports other from usportshoop
 #which program has the most pro players from usports hoops
