@@ -55,25 +55,27 @@ for index, row in merged_df.iterrows():
         markers[index] = index  # Set marker index for championship years
     line_color = "#D1D1D1" #default line color
     mark_title = False
+    if row['team_name'] == 'SimonFraser':
+        continue
     #figure out how to get top 5 and label them and colors for each team
     if row['team_name'] == 'Laurentian':
-        line_color = '#000000'
+        line_color = '#003e7e'
         mylabel= f"{row['team_name']} - {row['championship_count']} titles"
         mark_title = True
     if row['team_name'] == 'Victoria':
-        line_color = '#1b5494'
+        line_color = '#f6bf37'
         mylabel = f"{row['team_name']} - {row['championship_count']} titles"
         mark_title = True
     if row['team_name'] == 'UBC':
-        line_color = '#FF0000'
+        line_color = '#008000'
         mylabel = f"{row['team_name']} - {row['championship_count']} titles"
         mark_title = True
-    if row['team_name'] == 'SimonFraser':
-        line_color = '#612042'
+    if row['team_name'] == 'Carleton':
+        line_color = '#000000'
         mylabel = f"{row['team_name']} - {row['championship_count']} titles"
         mark_title = True
     if row['team_name'] == 'Windsor':
-        line_color = '#ffb200'
+        line_color = '#FF0000'
         mylabel = f"{row['team_name']}- {row['championship_count']} titles"
         mark_title = True
     
@@ -86,10 +88,10 @@ for index, row in merged_df.iterrows():
 
 #Add labels and title
 plt.xlabel('Year')
-plt.title('USports Women\'s Basketball Top 5 Most Successful Program', fontweight='bold', fontsize = 20, va= 'top', ha='center')
+plt.title('USports Women\'s Basketball Most Successful Program', fontweight='bold', fontsize = 20, va= 'top', ha='center')
 plt.ylim(bottom=0)
-plt.xlim(earliest_year, latest_year)
-plt.xticks(range(earliest_year, latest_year+1), fontsize=6, rotation=45, weight='roman')  # Set x-axis labels to years
+plt.xlim(earliest_year + 0.3, latest_year + 0.3)
+plt.xticks(range(earliest_year, latest_year+1), fontsize=6.5, rotation=45, weight='roman')  # Set x-axis labels to years
 
 # Selecting the axis-Y making the right and left axes False 
 plt.tick_params(axis='y', which='both', right=False, 
@@ -105,7 +107,7 @@ handles, labels = plt.gca().get_legend_handles_labels()
 plt.legend(handles[::-1], labels[::-1])
 
 # Reduce white space
-plt.subplots_adjust(left=0.03, right=0.96, top=0.9, bottom=0.1)
+plt.subplots_adjust(left=0.05, right=0.95, top=0.9, bottom=0.1)
 fig.set_facecolor(bgcol)
 ax.set_facecolor(bgcol)
 image_path = 'USportLogo.png'  # Relative path
@@ -116,7 +118,7 @@ image = imread(image_path)
 plt.figimage(image, xo = 600, yo = 3000, alpha = 0.7)
 fig.text(0.67,0.886,'by OJ Adeyemi', fontsize = 10, fontstyle='oblique', alpha =0.7)
 #save figure before showing
-plt.savefig('USports_WBB_BestProgram2.png', dpi=300)
+plt.savefig('USports_WBB_BestProgram3.png', dpi=300)
 #plt.show()
 plt.close()
 
