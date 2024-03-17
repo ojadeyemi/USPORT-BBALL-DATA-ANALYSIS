@@ -20,7 +20,7 @@ bgcol = '#fafaf0'
 fig, ax = plt.subplots(figsize=(19.20,10.80))                   
 
 #earliest year for men is 1962 and for womens is 1971
-earliest_year, latest_year = 1971, 2024
+earliest_year, latest_year = 1962, 2024
 #Iterate through teams
 for index, row in merged_df.iterrows():
     # Initialize a list to store team's cumulative performance (appearances + championships) per year
@@ -58,7 +58,7 @@ for index, row in merged_df.iterrows():
     if row['team_name'] == 'SimonFraser':
         continue
     #figure out how to get top 5 and label them and colors for each team
-    if row['team_name'] == 'Laurentian':
+    if row['team_name'] == 'Brandon':
         line_color = '#003e7e'
         mylabel= f"{row['team_name']} - {row['championship_count']} titles"
         mark_title = True
@@ -66,9 +66,9 @@ for index, row in merged_df.iterrows():
         line_color = '#f6bf37'
         mylabel = f"{row['team_name']} - {row['championship_count']} titles"
         mark_title = True
-    if row['team_name'] == 'UBC':
+    if row['team_name'] == 'SaintMarys':
         line_color = '#008000'
-        mylabel = f"{row['team_name']} - {row['championship_count']} titles"
+        mylabel = f"Saint Mary's - {row['championship_count']} titles"
         mark_title = True
     if row['team_name'] == 'Carleton':
         line_color = '#000000'
@@ -81,14 +81,14 @@ for index, row in merged_df.iterrows():
     
     if mark_title:
         # Plot the line for the current team
-        plt.plot(range(earliest_year, latest_year + 1), team_performance, label=mylabel, color = line_color, lw = 2.1, 
+        plt.plot(range(earliest_year, latest_year + 1), team_performance, label=mylabel, color = line_color, lw = 2.3, 
                  marker = 'o', markevery = markers, markersize = 6)
     else:
         plt.plot(range(earliest_year, latest_year + 1), team_performance, color = line_color, alpha=0.7)
 
 #Add labels and title
 plt.xlabel('Year')
-plt.title('USports Women\'s Basketball Most Successful Program', fontweight='bold', fontsize = 20, va= 'top', ha='center')
+plt.title('USports Men\'s Basketball Most Successful Program', fontweight='bold', fontsize = 20, va= 'top', ha='center')
 plt.ylim(bottom=0)
 plt.xlim(earliest_year + 0.3, latest_year + 0.3)
 plt.xticks(range(earliest_year, latest_year+1), fontsize=6.5, rotation=45, weight='roman')  # Set x-axis labels to years
@@ -109,13 +109,13 @@ fig.set_facecolor(bgcol)
 ax.set_facecolor(bgcol)
 image_path = 'USportLogo.png'  # Relative path
 
-plt.legend(reverse=True, loc='upper left', fontsize = 15, handlelength=5, borderpad=1.2, labelspacing=1.2)
+plt.legend(reverse=True, loc='upper left', fontsize = 17, handlelength=5, borderpad=1.3, labelspacing=1.3)
 
 # Read the image
 image = imread(image_path)
 
 plt.figimage(image, xo = 600, yo = 3000, alpha = 0.7)
-fig.text(0.67,0.886,'by OJ Adeyemi', fontsize = 10, fontstyle='oblique', alpha =0.7)
+fig.text(0.665,0.886,'by OJ Adeyemi', fontsize = 10, fontstyle='oblique', alpha =0.7)
 #save figure before showing
 plt.savefig('USports_MBB_BestProgram2.png', dpi=300)
 #plt.show()
