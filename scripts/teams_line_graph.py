@@ -102,9 +102,6 @@ plt.tick_params(axis='y', which='both', right=False,
 for pos in ['right', 'top', 'left']: 
     plt.gca().spines[pos].set_visible(False) 
 
-# Reverse the order of legend items
-handles, labels = plt.gca().get_legend_handles_labels()
-plt.legend(handles[::-1], labels[::-1])
 
 # Reduce white space
 plt.subplots_adjust(left=0.05, right=0.95, top=0.9, bottom=0.1)
@@ -112,13 +109,15 @@ fig.set_facecolor(bgcol)
 ax.set_facecolor(bgcol)
 image_path = 'USportLogo.png'  # Relative path
 
+plt.legend(reverse=True, loc='upper left', fontsize = 15, handlelength=5, borderpad=1.2, labelspacing=1.2)
+
 # Read the image
 image = imread(image_path)
 
 plt.figimage(image, xo = 600, yo = 3000, alpha = 0.7)
 fig.text(0.67,0.886,'by OJ Adeyemi', fontsize = 10, fontstyle='oblique', alpha =0.7)
 #save figure before showing
-plt.savefig('USports_WBB_BestProgram3.png', dpi=300)
+plt.savefig('USports_WBB_BestProgram.png', dpi=300)
 #plt.show()
 plt.close()
 
