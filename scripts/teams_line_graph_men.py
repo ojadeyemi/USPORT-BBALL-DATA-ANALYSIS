@@ -5,8 +5,8 @@ import pandas as pd
 from datafunctions import usports_hoop_data
 
 #list of teams who won championshp and appeared in final 8 (replace mbb to wbb for womens)
-championship_teams = usports_hoop_data('https://usportshoops.ca/history/champ-years.php?Gender=WBB')
-appearance_teams = usports_hoop_data('https://usportshoops.ca/history/champ-appearances.php?Gender=WBB')
+championship_teams = usports_hoop_data('https://usportshoops.ca/history/champ-years.php?Gender=MBB')
+appearance_teams = usports_hoop_data('https://usportshoops.ca/history/champ-appearances.php?Gender=MBB')
 
 temp_df = pd.DataFrame(championship_teams) #championship dataframe
 temp_df2 = pd.DataFrame(appearance_teams) #appearance dataframe
@@ -117,7 +117,7 @@ image = imread(image_path)
 plt.figimage(image, xo = 600, yo = 3000, alpha = 0.7)
 fig.text(0.67,0.886,'by OJ Adeyemi', fontsize = 10, fontstyle='oblique', alpha =0.7)
 #save figure before showing
-plt.savefig('USports_WBB_BestProgram2.png', dpi=300)
+plt.savefig('USports_MBB_BestProgram2.png', dpi=300)
 #plt.show()
 plt.close()
 
