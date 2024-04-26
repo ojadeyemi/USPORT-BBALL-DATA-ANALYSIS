@@ -1,4 +1,5 @@
 # Draw an NBA court
+#just tseting out sportpy package
 from sportypy.surfaces.basketball import NBACourt
 import matplotlib.pyplot as plt
 

@@ -1,16 +1,25 @@
-## USports Basketball Team Data Web Scraping Project
-This project focuses on web scraping data related to USports basketball teams using Python. The collected data is cleaned and organized into data frames stored in an SQLite database(optional) and then analyzed.
+This project scrapes data from USports basketball teams using Python, organizes it into data frames, and analyzes it.
 
-### Project Overview
+## Overview
 
-The main objectives of this project include:
+- **Web Scraping:** Extract data from USports official website and USports hoops website using Python libraries like BeautifulSoup and requests.
+- **Data Cleaning:** Process scraped data for consistency, accuracy, and relevance. Handle missing values, standardize formats, and remove duplicates.
+- **Database Integration:** Store cleaned data into an SQLite database for efficient management and retrieval (optional).
+- **Data Analysis:** Analyze collected data for insights into team performance, player statistics, game outcomes, and other relevant metrics.
+- **Data Visualization:** Utilize Matplotlib to create graphs and plots for visualizing analysis results.
 
-- **Web scraping:** Utilizing Python libraries such as BeautifulSoup and requests to extract data from USports official websites and USports hoops. 
+## Graphs
 
-- **Data Cleaning:** Processing the scraped data to ensure consistency, accuracy, and relevance. This involves handling missing values, standardizing formats, and removing duplicates.
+Here are some visualizations generated from the analysis:
 
-- **Database Integration:** Storing the cleaned data into a relational database (SQL) for efficient data management and retrieval. (Optional)
+![USports Efficiency Landscape](graphs/USports%20Men's%20Basketball%20League.png)
 
-- **Data Analysis:** Analyzing the collected data insightfully. This involves examining team performance, player statistics, game outcomes, and other relevant metrics.
+![USports Efficiency Landscape](graphs/USports%20Women's%20Basketball%20League.png)
 
-- **Data Visualization:** Utilizing tools such as Matplotlib to create graphs, plots, and other visualizations that help convey stories or insights from the data analysis.
+![OUA Efficiency Landscape](graphs/OUA%20Men's%20Basketball.png)
+
+![OUA Efficiency Landscape](graphs/OUA%20Women's%20Basketball.png)
+
+![USport WBB Most Successful Programs](graphs/USports_WBB_BestProgram.png)
+
+![USport MBB Most Successful Programs](graphs/USports_MBB_BestProgram.png)
